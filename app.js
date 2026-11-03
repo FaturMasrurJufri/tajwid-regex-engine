@@ -1,117 +1,228 @@
 import { TajwidEngine } from "./engine.js";
 
-// Pemetaan Contoh Hukum Tajwid ke Koordinat Surah & Ayat untuk Audio MP3 Qari Dunia
+// Pemetaan Contoh Tiap Hukum ke Rekaman MP3 Qari Dunia (EveryAyah CDN)
 const RULE_AUDIO_EXAMPLES = {
-  IDGHAM_MIMI: {
-    text: "ٱلَّذِىٓ أَطْعَمَهُم مِّن جُوعٍ",
-    latin: "QS. Quraisy [106]: 4 — Contoh Idgham Mimi (أَطْعَمَهُم مِّن)",
+  IZHAR_HALQI: {
+    text: "وَآمَنَهُمْ مِنْ خَوْفٍ",
+    latin: "QS. Quraisy [106]: 4 — Contoh Izhar Halqi: Nun Sukun bertemu Kha (مِنْ خَوْفٍ)",
     surah: 106,
     ayah: 4
   },
-  IKHFA_SYAFAWI: {
-    text: "تَرْمِيهِم بِحِجَارَةٍ مِّن سِجِّيلٍ",
-    latin: "QS. Al-Fil [105]: 4 — Contoh Ikhfa Syafawi (تَرْمِيهِم بِحِجَارَةٍ)",
-    surah: 105,
-    ayah: 4
-  },
-  IQLAB: {
-    text: "كَلَّا لَيُنۢبَذَنَّ فِى ٱلْحُطَمَةِ",
-    latin: "QS. Al-Humazah [104]: 4 — Contoh Iqlab (لَيُنۢبَذَنَّ)",
-    surah: 104,
-    ayah: 4
-  },
   IDGHAM_BIGHUNNAH: {
-    text: "فَمَن يَعْمَلْ مِثْقَالَ ذَرَّةٍ خَيْرًا يَرَهُۥ",
-    latin: "QS. Az-Zalzalah [99]: 7 — Contoh Idgham Bighunnah (فَمَن يَعْمَلْ & خَيْرًا يَرَهُ)",
+    text: "فَمَنْ يَعْمَلْ مِثْقَالَ ذَرَّةٍ خَيْرًا يَرَهُ",
+    latin: "QS. Az-Zalzalah [99]: 7 — Contoh Idgham Bighunnah (فَمَنْ يَعْمَلْ & خَيْرًا يَرَهُ)",
     surah: 99,
     ayah: 7
   },
   IDGHAM_BILAGHUNNAH: {
-    text: "وَيْلٌ لِّكُلِّ هُمَزَةٍ لُّمَزَةٍ",
-    latin: "QS. Al-Humazah [104]: 1 — Contoh Idgham Bilaghunnah (وَيْلٌ لِّكُلِّ)",
+    text: "وَيْلٌ لِكُلِّ هُمَزَةٍ لُمَزَةٍ",
+    latin: "QS. Al-Humazah [104]: 1 — Contoh Idgham Bilaghunnah (وَيْلٌ لِكُلِّ)",
     surah: 104,
     ayah: 1
   },
+  IQLAB: {
+    text: "كَلَّا لَيُنْبَذَنَّ فِي الْحُطَمَةِ",
+    latin: "QS. Al-Humazah [104]: 4 — Contoh Iqlab: Nun Sukun bertemu Ba (لَيُنْبَذَنَّ)",
+    surah: 104,
+    ayah: 4
+  },
   IKHFA: {
-    text: "مِن شَرِّ ٱلْوَسْوَاسِ ٱلْخَنَّاسِ",
-    latin: "QS. An-Nas [114]: 4 — Contoh Ikhfa Haqiqi (مِن شَرِّ)",
+    text: "مِنْ شَرِّ الْوَسْوَاسِ الْخَنَّاسِ",
+    latin: "QS. An-Nas [114]: 4 — Contoh Ikhfa Haqiqi: Nun Sukun bertemu Syin (مِنْ شَرِّ)",
     surah: 114,
     ayah: 4
   },
+  IKHFA_SYAFAWI: {
+    text: "تَرْمِيهِمْ بِحِجَارَةٍ مِنْ سِجِّيلٍ",
+    latin: "QS. Al-Fil [105]: 4 — Contoh Ikhfa Syafawi: Mim Sukun bertemu Ba (تَرْمِيهِمْ بِحِجَارَةٍ)",
+    surah: 105,
+    ayah: 4
+  },
+  IDGHAM_MIMI: {
+    text: "الَّذِي أَطْعَمَهُمْ مِنْ جُوعٍ",
+    latin: "QS. Quraisy [106]: 4 — Contoh Idgham Mimi: Mim Sukun bertemu Mim (أَطْعَمَهُمْ مِنْ)",
+    surah: 106,
+    ayah: 4
+  },
+  IZHAR_SYAFAWI: {
+    text: "أَلَمْ نَشْرَحْ لَكَ صَدْرَكَ",
+    latin: "QS. Al-Insyirah [94]: 1 — Contoh Izhar Syafawi: Mim Sukun bertemu Nun (أَلَمْ نَشْرَحْ)",
+    surah: 94,
+    ayah: 1
+  },
   GHUNNAH: {
-    text: "إِنَّآ أَعْطَيْنَٰكَ ٱلْكَوْثَرَ",
+    text: "إِنَّا أَعْطَيْنَاكَ الْكَوْثَرَ",
     latin: "QS. Al-Kautsar [108]: 1 — Contoh Ghunnah Musyaddadah (إِنَّا)",
     surah: 108,
     ayah: 1
   },
+  AL_SYAMSIYAH: {
+    text: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
+    latin: "QS. Al-Fatihah [1]: 1 — Contoh Alif Lam Syamsiyah (الرَّحْمَٰنِ الرَّحِيمِ)",
+    surah: 1,
+    ayah: 1
+  },
+  AL_QAMARIYAH: {
+    text: "الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ",
+    latin: "QS. Al-Fatihah [1]: 2 — Contoh Alif Lam Qamariyah (الْحَمْدُ & الْعَالَمِينَ)",
+    surah: 1,
+    ayah: 2
+  },
   QALQALAH: {
     text: "لَمْ يَلِدْ وَلَمْ يُولَدْ",
-    latin: "QS. Al-Ikhlas [112]: 3 — Contoh Qalqalah (يَلِدْ & يُولَدْ)",
+    latin: "QS. Al-Ikhlas [112]: 3 — Contoh Qalqalah Dal Sukun (يَلِدْ & يُولَدْ)",
     surah: 112,
     ayah: 3
+  },
+  MAD_LAZIM: {
+    text: "غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّآلِّينَ",
+    latin: "QS. Al-Fatihah [1]: 7 — Contoh Mad Lazim Mutsaqqal Kalimi 6 Harakat (الضَّآلِّينَ)",
+    surah: 1,
+    ayah: 7
+  },
+  MAD_WAJIB: {
+    text: "إِذَا جَآءَ نَصْرُ اللَّهِ وَالْفَتْحُ",
+    latin: "QS. An-Nashr [110]: 1 — Contoh Mad Wajib Muttashil 4–5 Harakat (جَآءَ)",
+    surah: 110,
+    ayah: 1
+  },
+  MAD_JAIZ: {
+    text: "إِنَّآ أَعْطَيْنَاكَ الْكَوْثَرَ",
+    latin: "QS. Al-Kautsar [108]: 1 — Contoh Mad Jaiz Munfashil (إِنَّآ أَعْطَيْنَاكَ)",
+    surah: 108,
+    ayah: 1
+  },
+  LAFADZ_JALALAH: {
+    text: "قُلْ هُوَ اللَّهُ أَحَدٌ",
+    latin: "QS. Al-Ikhlas [112]: 1 — Contoh Lafadz Jalalah Tafkhim (هُوَ اللَّهُ)",
+    surah: 112,
+    ayah: 1
+  },
+  MAD_LAYYIN: {
+    text: "لِإِيلَافِ قُرَيْشٍ",
+    latin: "QS. Quraisy [106]: 1 — Contoh Mad Layyin / Lin: Fathah bertemu Ya Sukun (قُرَيْشٍ)",
+    surah: 106,
+    ayah: 1
+  },
+  MAD_THABII: {
+    text: "مَالِكِ يَوْمِ الدِّينِ",
+    latin: "QS. Al-Fatihah [1]: 4 — Contoh Mad Thabi'i 2 Harakat (مَالِكِ)",
+    surah: 1,
+    ayah: 4
   }
 };
 
-// Dataset Sampel yang Terhubung ke Rekaman MP3 Qari Dunia
+// 6 Paket Sampel Komprehensif yang Mencakup Seluruh 16+ Kaidah Tajwid
 const SAMPLE_DATA = [
   {
     id: "S1",
-    title: "Sampel 1 — QS. Az-Zalzalah: 7 (Idgham Bighunnah & Qalqalah)",
+    title: "Sampel 1 — QS. Az-Zalzalah: 7 (Idgham Bighunnah, Izhar Halqi & Qalqalah)",
     arabic: "فَمَنْ يَعْمَلْ مِثْقَالَ ذَرَّةٍ خَيْرًا يَرَهُ",
-    translation: "Fokus deteksi: Idgham Bighunnah pada pertemuan Nun Sukun dan Tanwin dengan huruf Ya (فَمَنْ يَعْمَلْ dan خَيْرًا يَرَهُ).",
+    translation: "Memuat Idgham Bighunnah (فَمَنْ يَعْمَلْ & خَيْرًا يَرَهُ), Izhar Halqi pada Tanwin bertemu Kha (ذَرَّةٍ خَيْرًا), serta Mad Thabi'i (مِثْقَالَ).",
     surah: 99,
     ayah: 7
   },
   {
     id: "S2",
-    title: "Sampel 2 — QS. Al-Insyirah: 1–2 (Qalqalah & Ikhfa Haqiqi)",
-    arabic: "أَلَمْ نَشْرَحْ لَكَ صَدْرَكَ ۞ وَوَضَعْنَا عَنْكَ وِزْرَكَ",
-    translation: "Fokus deteksi: Qalqalah Sugra pada huruf Dal sukun (صَدْرَكَ) dan Ikhfa Haqiqi pada Nun Sukun bertemu Kaf (عَنْكَ).",
-    surah: 94,
-    ayah: 1
-  },
-  {
-    id: "S3",
-    title: "Sampel 3 — QS. Al-Fil: 4 & Al-Humazah: 4 (Ikhfa Syafawi & Iqlab)",
+    title: "Sampel 2 — QS. Al-Fil: 4 & Al-Humazah: 4 (Ikhfa Syafawi, Iqlab & Ikhfa Haqiqi)",
     arabic: "تَرْمِيهِمْ بِحِجَارَةٍ مِنْ سِجِّيلٍ ۞ كَلَّا لَيُنْبَذَنَّ فِي الْحُطَمَةِ",
-    translation: "Fokus deteksi: Ikhfa Syafawi (تَرْمِيهِمْ بِحِجَارَةٍ), Idgham Bighunnah (بِحِجَارَةٍ مِنْ), Ikhfa Haqiqi (مِنْ سِجِّيلٍ), Iqlab & Ghunnah (لَيُنْبَذَنَّ).",
+    translation: "Memuat Ikhfa Syafawi (تَرْمِيهِمْ بِحِجَارَةٍ), Idgham Bighunnah (بِحِجَارَةٍ مِنْ), Ikhfa Haqiqi (مِنْ سِجِّيلٍ), Iqlab & Ghunnah (لَيُنْبَذَنَّ), serta Alif Lam Qamariyah (الْحُطَمَةِ).",
     surah: 105,
     ayah: 4
   },
   {
+    id: "S3",
+    title: "Sampel 3 — QS. Al-Insyirah: 1–2 (Izhar Syafawi, Qalqalah & Ikhfa)",
+    arabic: "أَلَمْ نَشْرَحْ لَكَ صَدْرَكَ ۞ وَوَضَعْنَا عَنْكَ وِزْرَكَ",
+    translation: "Memuat Izhar Syafawi (أَلَمْ نَشْرَحْ), Qalqalah Sugra pada Dal Sukun (صَدْرَكَ), dan Ikhfa Haqiqi pada Nun Sukun bertemu Kaf (عَنْكَ).",
+    surah: 94,
+    ayah: 1
+  },
+  {
     id: "S4",
-    title: "Sampel 4 — QS. Al-Ikhlas: 1–3 (Qalqalah Dal Sukun)",
-    arabic: "قُلْ هُوَ اللَّهُ أَحَدٌ ۞ اللَّهُ الصَّمَدُ ۞ لَمْ يَلِدْ وَلَمْ يُولَدْ",
-    translation: "Fokus deteksi: Pantulan Qalqalah pada huruf Dal berharakat sukun (يَلِدْ dan يُولَدْ).",
+    title: "Sampel 4 — QS. Al-Fatihah: 7 & An-Nashr: 1 (Mad Lazim, Mad Wajib & Alif Lam)",
+    arabic: "إِذَا جَآءَ نَصْرُ اللَّهِ وَالْفَتْحُ ۞ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّآلِّينَ",
+    translation: "Memuat Mad Wajib Muttashil (جَآءَ), Lafadz Jalalah (اللَّهِ), Alif Lam Qamariyah (وَالْفَتْحُ & الْمَغْضُوبِ), Alif Lam Syamsiyah & Mad Lazim 6 Harakat (الضَّآلِّينَ).",
+    surah: 1,
+    ayah: 7
+  },
+  {
+    id: "S5",
+    title: "Sampel 5 — QS. Quraisy: 4 (Idgham Mimi, Izhar Halqi & Mad Layyin)",
+    arabic: "الَّذِيٓ أَطْعَمَهُمْ مِنْ جُوعٍ وَآمَنَهُمْ مِنْ خَوْفٍ",
+    translation: "Memuat Mad Jaiz Munfashil (الَّذِيٓ أَطْعَمَهُمْ), Qalqalah (أَطْعَمَهُمْ), Idgham Mimi (أَطْعَمَهُمْ مِنْ), Ikhfa Haqiqi (مِنْ جُوعٍ), Izhar Halqi (مِنْ خَوْفٍ), dan Mad Layyin (خَوْفٍ).",
+    surah: 106,
+    ayah: 4
+  },
+  {
+    id: "S6",
+    title: "Sampel 6 — QS. Al-Ikhlas: 1–3 (Lafadz Jalalah, Alif Lam Syamsiyah & Qalqalah)",
+    arabic: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ ۞ قُلْ هُوَ اللَّهُ أَحَدٌ ۞ اللَّهُ الصَّمَدُ ۞ لَمْ يَلِدْ وَلَمْ يُولَدْ",
+    translation: "Memuat Lafadz Jalalah Tarqiq (بِسْمِ اللَّهِ) & Tafkhim (هُوَ اللَّهُ), Alif Lam Syamsiyah (الرَّحْمَٰنِ & الصَّمَدُ), Izhar Syafawi (لَمْ يَلِدْ), dan Qalqalah (يَلِدْ & يُولَدْ).",
     surah: 112,
-    ayah: 3
+    ayah: 1
   }
 ];
 
 const DOCS_DATA = {
   readme: {
     filename: "README.md",
-    content: `📖 Manual Penggunaan — TajwidEngine PRO (World Qari Audio Edition)
+    content: `📖 Manual Penggunaan — TajwidEngine PRO 16 (World Qari Audio & Complete RegEx Edition)
 
-TajwidEngine PRO adalah mesin pencari, parser fonetik hukum tajwid berbasis Regular Expressions (RegEx), yang dilengkapi integrasi audio murottal asli dari para Qari terkemuka dunia.
+TajwidEngine PRO 16 adalah instrumen analisis fonetik Al-Qur'an dan mesin pencari hukum tajwid berbasis Regular Expressions (RegEx) Unicode yang mendeteksi 18 kategori kaidah tajwid (16 rumpun utama) secara real-time, dilengkapi integrasi rekaman MP3 asli dari 5 Qari terkemuka dunia.
 
-1. Memilih Suara Qari Dunia:
-   - Gunakan menu dropdown "Pilih Qari Dunia (MP3 Asli)" di bagian header atas:
-     • Syaikh Mahmoud Khalil Al-Hussary (Versi Muallim / Standar Guru Tajwid)
-     • Syaikh Mishary Rashid Alafasy
-     • Syaikh Abdul Basit Abdus Samad
-     • Syaikh Abdurrahman As-Sudais
-     • Syaikh Sa'ad Al-Ghamidi
+---
 
-2. Mendengarkan Audio Contoh Bacaan:
-   - Tombol "🔊 Qari" pada Legenda Hukum: Memutar rekaman MP3 asli Qari pilihan Anda pada ayat Al-Qur'an yang mengandung contoh hukum tajwid tersebut.
-   - Tombol "🔊 Putar Qari" pada Kartu Sampel: Memutar rekaman MP3 Qari untuk sampel ayat terkait.
-   - Klik Potongan Huruf Berwarna: Membedah rumus RegEx di panel Inspektor sekaligus melafalkan bunyi fokus potongan kata tersebut.
+### 1. Daftar Lengkap Kaidah Hukum Tajwid yang Dideteksi
+Aplikasi ini menganalisis dan mewarnai teks Arab secara otomatis untuk 4 rumpun besar ilmu tajwid:
 
-3. Menguji Teks Arab Sendiri (Live Sandbox):
-   - Ketik atau tempel kalimat bahasa Arab berharakat pada kotak Sandbox, lalu ketuk tombol emas "⚡ Analisis & Siapkan Audio".
+A. Rumpun Nun Sukun (نْ) & Tanwin (ـً ـٍ ـٌ):
+   1. Izhar Halqi — Bertemu 6 huruf tenggorokan (ء هـ ع ح غ خ), dibaca jelas.
+   2. Idgham Bighunnah — Bertemu huruf (ي ن م و), dilebur dengan dengung 2 harakat.
+   3. Idgham Bilaghunnah — Bertemu huruf Lam (ل) atau Ra (ر), dilebur tanpa dengung.
+   4. Iqlab — Bertemu huruf Ba (ب), bunyi berubah menjadi Mim samar disertai dengung.
+   5. Ikhfa Haqiqi — Bertemu 15 huruf Ikhfa, dibaca samar dengan dengung 2 harakat.
 
-fatur62@gmail.com`
+B. Rumpun Mim Sukun (مْ) & Ghunnah:
+   6. Ikhfa Syafawi — Mim Sukun bertemu Ba (ب), disamarkan di bibir dengan dengung.
+   7. Idgham Mimi (Mutamatsilain) — Mim Sukun bertemu Mim (م), dilebur dengan dengung.
+   8. Izhar Syafawi — Mim Sukun bertemu huruf selain Mim dan Ba, dibaca jelas di bibir.
+   9. Ghunnah Musyaddadah — Huruf Nun atau Mim bertasydid (نّ / مّ), wajib berdengung 2 harakat.
+
+C. Rumpun Alif Lam (ال) & Qalqalah:
+   10. Alif Lam Syamsiyah — Alif Lam bertemu 14 huruf Syamsiyah bertasydid (Lam melebur).
+   11. Alif Lam Qamariyah — Alif Lam Sukun (الْ) bertemu 14 huruf Qamariyah (Lam dibaca jelas).
+   12. Qalqalah — Huruf (ق ط ب ج د) berharakat sukun yang dibaca memantul.
+
+D. Rumpun Hukum Mad & Lafadz Jalalah:
+   13. Mad Lazim — Mad bertemu huruf bertasydid dalam satu kata (panjang 6 harakat).
+   14. Mad Wajib Muttashil — Mad bertemu Hamzah (ء) dalam satu kata (4–5 harakat).
+   15. Mad Jaiz Munfashil — Mad bertemu Hamzah (أ/إ) di kata berbeda (4–5 harakat).
+   16. Mad Layyin (Lin) — Wawu/Ya Sukun didahului huruf berharakat Fathah (ـَوْ / ـَيْ).
+   17. Mad Thabi'i (Asli) — Bacaan panjang dasar 2 harakat.
+   18. Lafadz Jalalah (اللَّه) — Deteksi lafadz Allah (Tafkhim/tebal dan Tarqiq/tipis).
+
+---
+
+### 2. Cara Memilih Qari & Mendengarkan Audio Murottal Asli
+1. Buka menu dropdown "Pilih Qari Dunia (MP3 Asli)" di bagian atas:
+   - Syaikh Mahmoud Khalil Al-Hussary (Versi Muallim / Standar Guru Tajwid)
+   - Syaikh Mishary Rashid Alafasy
+   - Syaikh Abdul Basit Abdus Samad
+   - Syaikh Abdurrahman As-Sudais
+   - Syaikh Sa'ad Al-Ghamidi
+2. Ketuk tombol "🔊 Qari" pada salah satu kotak di Katalog Hukum Tajwid untuk mendengarkan rekaman ayat Al-Qur'an yang menjadi contoh hukum tersebut.
+3. Ketuk tombol "🔊 Putar Qari" di sudut kanan atas setiap kartu sampel ayat.
+4. Ketuk potongan huruf Arab yang berwarna untuk melihat bedah rumus RegEx-nya di panel Inspektor kanan sekaligus memutar suaranya.
+
+---
+
+### 3. Menggunakan Live RegEx Sandbox (Uji Teks Arab Sendiri)
+1. Tempelkan (paste) ayat atau kalimat bahasa Arab berharakat lengkap ke dalam kotak "Live RegEx & Audio Sandbox".
+2. Ketuk tombol emas "⚡ Analisis 16 Hukum Tajwid".
+3. Seluruh hukum bacaan pada teks Anda akan langsung diwarnai dan dihitung statistiknya secara otomatis.
+
+📧 Kontak Developer: fatur62@gmail.com`
   },
   license: {
     filename: "LICENSE",
@@ -213,7 +324,7 @@ class TajwidApp {
           id: "CUSTOM",
           title: "Hasil Analisis Teks Kustom (Live Sandbox)",
           arabic: rawText,
-          translation: "Teks kustom yang dianalisis secara real-time dengan dukungan pelafalan sintetis Arab.",
+          translation: "Teks kustom yang dianalisis dengan 16+ kaidah hukum tajwid secara real-time.",
           surah: null,
           ayah: null
         }
@@ -271,14 +382,12 @@ class TajwidApp {
     });
   }
 
-  // Membuat URL MP3 CDN EveryAyah berdasarkan kode Qari, Nomor Surah & Nomor Ayat
   buildQariMp3Url(surah, ayah) {
     const sCode = String(surah).padStart(3, "0");
     const aCode = String(ayah).padStart(3, "0");
     return `https://everyayah.com/data/${this.state.selectedQari}/${sCode}${aCode}.mp3`;
   }
 
-  // Memutar Rekaman MP3 Asli Qari Dunia (dengan Fallback Web Speech jika offline/gagal)
   playQariAudio(surah, ayah, fallbackArabicText, labelInfo = "Murottal Qari", color = "#10b981", buttonEl = null) {
     if (this.state.isPlayingAudio && buttonEl && buttonEl.classList.contains("playing")) {
       this.stopAudio();
@@ -302,7 +411,7 @@ class TajwidApp {
     if (buttonEl) {
       buttonEl.classList.add("playing");
       buttonEl.dataset.origText = buttonEl.innerHTML;
-      buttonEl.innerHTML = "⏹ Hentikan Qari";
+      buttonEl.innerHTML = "⏹ Stop";
     }
 
     audio.addEventListener("playing", () => {
@@ -316,7 +425,6 @@ class TajwidApp {
     });
 
     audio.addEventListener("error", () => {
-      // Fallback otomatis ke sintetis suara jika koneksi ke CDN terhalang
       this.speakArabicFallback(fallbackArabicText, labelInfo, color, buttonEl);
     });
 
@@ -325,7 +433,6 @@ class TajwidApp {
     });
   }
 
-  // Mesin Pelafalan Potongan Kata Pendek / Fallback
   speakArabicFallback(arabicText, labelInfo = "Pelafalan Fokus", activeColor = "#d4af37", buttonEl = null) {
     if (!("speechSynthesis" in window)) {
       this.stopAudio();
@@ -351,7 +458,7 @@ class TajwidApp {
       if (buttonEl) {
         buttonEl.classList.add("playing");
         buttonEl.dataset.origText = buttonEl.innerHTML;
-        buttonEl.innerHTML = "⏹ Hentikan";
+        buttonEl.innerHTML = "⏹ Stop";
       }
       this.startWaveformAnimation(activeColor);
     };
@@ -515,7 +622,9 @@ class TajwidApp {
           arabDiv.appendChild(document.createTextNode(seg.text));
         } else {
           const span = document.createElement("span");
-          span.className = `tj-token rule-${seg.meta.ruleId}`;
+          span.className = "tj-token";
+          span.style.color = seg.meta.color;
+          span.style.backgroundColor = `${seg.meta.color}22`;
           span.textContent = seg.text;
           span.title = `Ketuk untuk detail & audio: ${seg.meta.ruleName}`;
           span.addEventListener("click", () => {
@@ -553,11 +662,11 @@ class TajwidApp {
 
     TajwidEngine.RULES.forEach((rule) => {
       const pill = document.createElement("div");
-      pill.className = "legend-pill";
+      pill.className = `legend-pill ${this.state.filterRule === rule.id ? "active-filter" : ""}`;
 
       const leftDiv = document.createElement("div");
       leftDiv.className = "legend-left";
-      leftDiv.title = "Ketuk untuk memfilter hukum ini";
+      leftDiv.title = "Ketuk untuk memfilter khusus hukum ini";
       leftDiv.innerHTML = `
         <span class="color-swatch" style="background-color: ${rule.color};"></span>
         <span>${rule.name}</span>
