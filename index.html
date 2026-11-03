@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TajwidEngine PRO — RegEx Arabic Phonetic & Tajwid Parser</title>
+  <title>TajwidEngine PRO — RegEx Arabic Phonetic & Audio Tajwid Parser</title>
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
@@ -26,7 +26,15 @@
             <option value="S1">Sampel 1 — Hukum Nun Sukun & Tanwin</option>
             <option value="S2">Sampel 2 — Qalqalah, Ghunnah & Idgham</option>
             <option value="S3">Sampel 3 — Hukum Mim Sukun & Iqlab</option>
-            <option value="S4">Sampel 4 — Ikhfa Haqiqi & Mad Thabi'i</option>
+            <option value="S4">Sampel 4 — Ikhfa Haqiqi & Qalqalah</option>
+          </select>
+        </div>
+        <div class="control-item">
+          <label for="audio-rate">Kecepatan Baca (Tartil)</label>
+          <select id="audio-rate">
+            <option value="0.75">Lambat / Tahqiq (0.75x)</option>
+            <option value="0.9" selected>Tartil Standar (0.9x)</option>
+            <option value="1.0">Normal / Tadwir (1.0x)</option>
           </select>
         </div>
         <button id="btn-open-docs" class="btn-doc-menu" title="Buka Dokumentasi & Lisensi">
@@ -39,10 +47,9 @@
   <main class="container">
     <!-- Baris 1: Live Analyzer & Search Filter -->
     <section class="analyzer-grid">
-      <!-- Live Custom Arabic Input -->
       <div class="glass-card">
         <div class="card-header-flex">
-          <span class="card-tag">LIVE REGEX SANDBOX (UJI TEKS ARAB)</span>
+          <span class="card-tag">LIVE REGEX & AUDIO SANDBOX</span>
           <span class="status-pill">Real-Time Tokenizer</span>
         </div>
         <div class="sandbox-group">
@@ -50,12 +57,11 @@
           <textarea id="custom-arabic" rows="2" dir="rtl" placeholder="مَنْ يَعْمَلْ مِثْقَالَ ذَرَّةٍ خَيْرًا يَرَهُ"></textarea>
         </div>
         <div class="sandbox-actions">
-          <button id="btn-parse-custom" class="btn-gold">⚡ Analisis Hukum Tajwid</button>
+          <button id="btn-parse-custom" class="btn-gold">⚡ Analisis & Siapkan Audio</button>
           <button id="btn-reset-custom" class="btn-outline-gold">Reset ke Dataset</button>
         </div>
       </div>
 
-      <!-- Search & Rule Filter -->
       <div class="glass-card">
         <div class="card-header-flex">
           <span class="card-tag">MESIN PENCARI & FILTER HUKUM</span>
@@ -84,11 +90,11 @@
       </div>
     </section>
 
-    <!-- Baris 2: Legenda Interaktif & Statistik Frekuensi -->
+    <!-- Baris 2: Legenda Interaktif & Tombol Audio Contoh per Hukum -->
     <section class="legend-section">
       <div class="section-heading">
-        <h3>Legenda Warna & Statistik Deteksi RegEx</h3>
-        <span class="sub-info">Ketuk pada teks berwarna di bawah untuk melihat rincian kaidah fonetik</span>
+        <h3>Legenda Warna & Audio Contoh Tiap Hukum</h3>
+        <span class="sub-info">Ketuk ikon 🔊 pada tiap hukum untuk mendengar contoh pelafalannya, atau ketuk nama hukum untuk memfilter</span>
       </div>
       <div id="legend-grid" class="legend-grid"></div>
     </section>
@@ -97,12 +103,20 @@
     <section class="workspace-grid">
       <div id="arabic-results" class="results-column"></div>
 
-      <!-- Panel Inspektor Tajwid -->
+      <!-- Panel Inspektor Tajwid + Audio Visualizer -->
       <aside class="glass-card inspector-card">
-        <div class="card-tag">INSPEKTOR FONETIK & KAIDAH</div>
+        <div class="card-header-flex" style="margin-bottom: 0.5rem;">
+          <span class="card-tag">INSPEKTOR FONETIK & AUDIO</span>
+          <span id="audio-status-badge" class="status-pill pill-warn">Audio Siap</span>
+        </div>
+
+        <div class="wave-container">
+          <canvas id="audio-canvas" width="290" height="64"></canvas>
+        </div>
+
         <div id="inspector-content" class="inspector-body">
           <div class="inspector-empty">
-            Arsitektur RegEx siap. Ketuk salah satu potongan huruf berwarna pada teks Arab di samping untuk membedah rumus deteksinya.
+            Ketuk salah satu potongan huruf berwarna pada teks Arab di samping untuk membedah rumus RegEx dan mendengarkan pelafalan khusus potongan tajwid tersebut.
           </div>
         </div>
       </aside>
