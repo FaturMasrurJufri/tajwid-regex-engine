@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TajwidEngine PRO — RegEx Arabic Phonetic & Audio Tajwid Parser</title>
+  <title>TajwidEngine PRO — RegEx Arabic Phonetic & Qari Audio Parser</title>
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
@@ -20,6 +20,16 @@
 
       <div class="header-controls">
         <div class="control-item">
+          <label for="select-qari">Pilih Qari Dunia (MP3 Asli)</label>
+          <select id="select-qari">
+            <option value="Husary_Muallim_128kbps" selected>Syaikh Mahmoud Khalil Al-Hussary (Muallim)</option>
+            <option value="Alafasy_128kbps">Syaikh Mishary Rashid Alafasy</option>
+            <option value="Abdul_Basit_Murattal_192kbps">Syaikh Abdul Basit Abdus Samad</option>
+            <option value="Abdurrahmaan_As-Sudais_192kbps">Syaikh Abdurrahman As-Sudais</option>
+            <option value="Ghamadi_40kbps">Syaikh Sa'ad Al-Ghamidi</option>
+          </select>
+        </div>
+        <div class="control-item">
           <label for="preset-sample">Sampel Kalimat Latihan</label>
           <select id="preset-sample">
             <option value="all">Semua Sampel Komprehensif</option>
@@ -27,14 +37,6 @@
             <option value="S2">Sampel 2 — Qalqalah, Ghunnah & Idgham</option>
             <option value="S3">Sampel 3 — Hukum Mim Sukun & Iqlab</option>
             <option value="S4">Sampel 4 — Ikhfa Haqiqi & Qalqalah</option>
-          </select>
-        </div>
-        <div class="control-item">
-          <label for="audio-rate">Kecepatan Baca (Tartil)</label>
-          <select id="audio-rate">
-            <option value="0.75">Lambat / Tahqiq (0.75x)</option>
-            <option value="0.9" selected>Tartil Standar (0.9x)</option>
-            <option value="1.0">Normal / Tadwir (1.0x)</option>
           </select>
         </div>
         <button id="btn-open-docs" class="btn-doc-menu" title="Buka Dokumentasi & Lisensi">
@@ -69,8 +71,8 @@
         </div>
         <div class="filter-controls">
           <div class="input-field">
-            <label for="search-text">Cari Kata / Terjemahan / Hukum</label>
-            <input type="text" id="search-text" placeholder="Ketik kata kunci (misal: qalqalah, ikhfa, sabar)...">
+            <label for="search-text">Cari Kata / Keterangan / Hukum</label>
+            <input type="text" id="search-text" placeholder="Ketik kata kunci (misal: qalqalah, ikhfa, iqlab)...">
           </div>
           <div class="input-field">
             <label for="filter-rule">Filter Fokus Hukum Tajwid</label>
@@ -90,11 +92,11 @@
       </div>
     </section>
 
-    <!-- Baris 2: Legenda Interaktif & Tombol Audio Contoh per Hukum -->
+    <!-- Baris 2: Legenda Interaktif & Tombol Audio Qari per Hukum -->
     <section class="legend-section">
       <div class="section-heading">
-        <h3>Legenda Warna & Audio Contoh Tiap Hukum</h3>
-        <span class="sub-info">Ketuk ikon 🔊 pada tiap hukum untuk mendengar contoh pelafalannya, atau ketuk nama hukum untuk memfilter</span>
+        <h3>Legenda Warna & Audio Qari Tiap Hukum</h3>
+        <span class="sub-info">Ketuk tombol 🔊 Qari pada tiap hukum untuk mendengar rekaman asli Qari dunia pada ayat yang memuat hukum tersebut</span>
       </div>
       <div id="legend-grid" class="legend-grid"></div>
     </section>
@@ -106,7 +108,7 @@
       <!-- Panel Inspektor Tajwid + Audio Visualizer -->
       <aside class="glass-card inspector-card">
         <div class="card-header-flex" style="margin-bottom: 0.5rem;">
-          <span class="card-tag">INSPEKTOR FONETIK & AUDIO</span>
+          <span class="card-tag">INSPEKTOR FONETIK & AUDIO QARI</span>
           <span id="audio-status-badge" class="status-pill pill-warn">Audio Siap</span>
         </div>
 
@@ -116,7 +118,7 @@
 
         <div id="inspector-content" class="inspector-body">
           <div class="inspector-empty">
-            Ketuk salah satu potongan huruf berwarna pada teks Arab di samping untuk membedah rumus RegEx dan mendengarkan pelafalan khusus potongan tajwid tersebut.
+            Pilih Qari di bagian atas, lalu ketuk tombol 🔊 Qari pada legenda atau kartu sampel untuk mendengarkan lantunan murottal asli.
           </div>
         </div>
       </aside>
