@@ -1,0 +1,618 @@
+:root {
+  --bg-deep: #040d0a;
+  --bg-card: rgba(10, 26, 20, 0.76);
+  --gold-primary: #d4af37;
+  --gold-light: #f3e5ab;
+  --gold-dim: rgba(212, 175, 55, 0.28);
+  --emerald-glow: #10b981;
+  --text-light: #f8fafc;
+  --text-muted: #94a3b8;
+  --radius-lg: 16px;
+  --radius-md: 10px;
+  --shadow-luxury: 0 20px 40px -15px rgba(0, 0, 0, 0.75), 0 0 20px rgba(212, 175, 55, 0.08);
+
+  /* Warna Standar Hukum Tajwid */
+  --tj-ghunnah: #f43f5e;
+  --tj-idgham-bg: #10b981;
+  --tj-idgham-blg: #38bdf8;
+  --tj-iqlab: #a855f7;
+  --tj-ikhfa: #f59e0b;
+  --tj-ikhfa-syafawi: #ec4899;
+  --tj-idgham-mimi: #14b8a6;
+  --tj-qalqalah: #3b82f6;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-deep);
+  background-image: 
+    radial-gradient(circle at 10% 15%, rgba(16, 185, 129, 0.12) 0%, transparent 45%),
+    radial-gradient(circle at 88% 80%, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
+  color: var(--text-light);
+  min-height: 100vh;
+  line-height: 1.5;
+  padding-bottom: 4rem;
+}
+
+.container {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+/* Luxury Header */
+.luxury-header {
+  border-bottom: 1px solid var(--gold-dim);
+  background: rgba(4, 13, 10, 0.88);
+  backdrop-filter: blur(14px);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding: 1.2rem 0;
+  margin-bottom: 2rem;
+}
+
+.header-grid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+.arabic-ornament {
+  display: block;
+  font-size: 1.1rem;
+  color: var(--gold-primary);
+  margin-bottom: 0.1rem;
+}
+
+.app-title {
+  font-size: 1.7rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #ffffff 0%, var(--gold-light) 55%, var(--gold-primary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.gold-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--gold-primary), #b38728);
+  -webkit-text-fill-color: #040d0a;
+  letter-spacing: 0.08em;
+}
+
+/* Identitas Developer & Live Streaming Dot */
+.dev-identity {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 0.45rem;
+  padding: 0.25rem 0.75rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(212, 175, 55, 0.22);
+  border-radius: 999px;
+}
+
+.live-dot {
+  width: 9px;
+  height: 9px;
+  background-color: #ff2a5f;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 8px #ff2a5f, 0 0 16px #ff2a5f;
+  animation: streamBlink 1.15s infinite ease-in-out;
+}
+
+@keyframes streamBlink {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1.1);
+    box-shadow: 0 0 10px #ff2a5f, 0 0 20px #ff2a5f;
+  }
+  50% {
+    opacity: 0.2;
+    transform: scale(0.8);
+    box-shadow: 0 0 2px #ff2a5f;
+  }
+}
+
+.dev-text {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.dev-text strong {
+  color: var(--gold-light);
+}
+
+.header-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.75rem;
+}
+
+.control-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.control-item label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--gold-primary);
+  font-weight: 600;
+}
+
+select, input, textarea {
+  background: rgba(6, 20, 15, 0.92);
+  border: 1px solid var(--gold-dim);
+  color: var(--text-light);
+  padding: 0.55rem 0.85rem;
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+textarea {
+  width: 100%;
+  font-size: 1.35rem;
+  font-family: 'Traditional Arabic', 'Amiri', 'Geeza Pro', serif;
+  line-height: 1.8;
+  resize: vertical;
+}
+
+select:focus, input:focus, textarea:focus {
+  border-color: var(--gold-primary);
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+}
+
+.btn-gold {
+  background: linear-gradient(135deg, var(--gold-primary) 0%, #aa7c11 100%);
+  color: #040d0a;
+  font-weight: 700;
+  font-size: 0.84rem;
+  border: none;
+  padding: 0.6rem 1.1rem;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.btn-outline-gold {
+  background: rgba(212, 175, 55, 0.08);
+  color: var(--gold-light);
+  border: 1px solid var(--gold-dim);
+  padding: 0.58rem 1rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+.btn-doc-menu {
+  background: rgba(16, 185, 129, 0.14);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 0.58rem 1rem;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+/* Analyzer & Filter Grid */
+.analyzer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.glass-card {
+  background: var(--bg-card);
+  border: 1px solid var(--gold-dim);
+  border-radius: var(--radius-lg);
+  padding: 1.4rem;
+  box-shadow: var(--shadow-luxury);
+  backdrop-filter: blur(12px);
+}
+
+.card-header-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.9rem;
+}
+
+.card-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--gold-primary);
+  text-transform: uppercase;
+}
+
+.status-pill {
+  font-size: 0.7rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  font-weight: 600;
+}
+
+.pill-warn {
+  background: rgba(212, 175, 55, 0.14);
+  color: var(--gold-light);
+  border-color: var(--gold-dim);
+}
+
+.sandbox-group label, .input-field label {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 0.35rem;
+}
+
+.sandbox-actions {
+  display: flex;
+  gap: 0.65rem;
+  margin-top: 0.85rem;
+}
+
+.filter-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.input-field input, .input-field select {
+  width: 100%;
+}
+
+/* Legend & Stats Grid */
+.legend-section {
+  margin-bottom: 2rem;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  margin-bottom: 0.9rem;
+  gap: 0.5rem;
+}
+
+.section-heading h3 {
+  font-size: 1.15rem;
+  color: var(--gold-light);
+}
+
+.sub-info {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.legend-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.75rem;
+}
+
+.legend-pill {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 0.65rem 0.9rem;
+  cursor: pointer;
+  transition: transform 0.15s, border-color 0.2s;
+}
+
+.legend-pill:hover {
+  transform: translateY(-2px);
+  border-color: var(--gold-primary);
+}
+
+.legend-left {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.color-swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.legend-count {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.1rem 0.45rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--gold-light);
+}
+
+/* Workspace & Arabic Cards */
+.workspace-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.results-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.ayah-card {
+  background: var(--bg-card);
+  border: 1px solid var(--gold-dim);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-luxury);
+}
+
+.ayah-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.ayah-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--gold-light);
+}
+
+.arabic-text {
+  font-family: 'Traditional Arabic', 'Amiri', 'Scheherazade New', 'Geeza Pro', serif;
+  font-size: 2.15rem;
+  line-height: 2.25;
+  text-align: right;
+  direction: rtl;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  word-spacing: 0.12em;
+}
+
+.translation-text {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* Highlight Token Tajwid Interaktif */
+.tj-token {
+  padding: 0.06rem 0.22rem;
+  margin: 0 1px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.18s;
+  border-bottom: 2px solid currentColor;
+}
+
+.tj-token:hover, .tj-token.selected {
+  filter: brightness(1.25);
+  box-shadow: 0 0 12px currentColor;
+}
+
+.rule-GHUNNAH { color: var(--tj-ghunnah); background: rgba(244, 63, 94, 0.14); }
+.rule-IDGHAM_BIGHUNNAH { color: var(--tj-idgham-bg); background: rgba(16, 185, 129, 0.14); }
+.rule-IDGHAM_BILAGHUNNAH { color: var(--tj-idgham-blg); background: rgba(56, 189, 248, 0.14); }
+.rule-IQLAB { color: var(--tj-iqlab); background: rgba(168, 85, 247, 0.14); }
+.rule-IKHFA { color: var(--tj-ikhfa); background: rgba(245, 158, 11, 0.14); }
+.rule-IKHFA_SYAFAWI { color: var(--tj-ikhfa-syafawi); background: rgba(236, 72, 153, 0.14); }
+.rule-IDGHAM_MIMI { color: var(--tj-idgham-mimi); background: rgba(20, 184, 166, 0.14); }
+.rule-QALQALAH { color: var(--tj-qalqalah); background: rgba(59, 130, 246, 0.14); }
+
+/* Inspector Card */
+.inspector-card {
+  position: sticky;
+  top: 6.2rem;
+}
+
+.inspector-body {
+  margin-top: 1rem;
+}
+
+.inspector-empty {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  padding: 1.5rem 0.5rem;
+  text-align: center;
+}
+
+.insp-arabic-preview {
+  font-family: 'Traditional Arabic', 'Amiri', serif;
+  font-size: 2.6rem;
+  text-align: center;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.insp-row {
+  margin-bottom: 0.85rem;
+}
+
+.insp-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+.insp-value {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--gold-light);
+  margin-top: 0.15rem;
+}
+
+.insp-desc {
+  font-size: 0.84rem;
+  color: var(--text-light);
+  line-height: 1.55;
+  margin-top: 0.2rem;
+}
+
+.insp-regex {
+  display: block;
+  background: #020806;
+  padding: 0.55rem;
+  border-radius: 6px;
+  font-family: monospace;
+  font-size: 0.75rem;
+  color: #34d399;
+  overflow-x: auto;
+  margin-top: 0.25rem;
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+/* Modal Baca Saya */
+.doc-modal {
+  margin: auto;
+  width: 92%;
+  max-width: 780px;
+  background: #061510;
+  color: var(--text-light);
+  border: 1px solid var(--gold-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85);
+  padding: 0;
+  overflow: hidden;
+}
+
+.doc-modal::backdrop {
+  background: rgba(2, 8, 6, 0.78);
+  backdrop-filter: blur(6px);
+}
+
+.doc-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(10, 26, 20, 0.95);
+  border-bottom: 1px solid var(--gold-dim);
+  padding: 0.75rem 1.25rem;
+}
+
+.doc-tabs {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.doc-tab {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-muted);
+  border: 1px solid transparent;
+  padding: 0.45rem 0.95rem;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.doc-tab.active {
+  background: rgba(212, 175, 55, 0.18);
+  color: var(--gold-light);
+  border-color: var(--gold-primary);
+}
+
+.btn-close-modal {
+  background: rgba(255, 42, 95, 0.15);
+  color: #ff2a5f;
+  border: 1px solid rgba(255, 42, 95, 0.35);
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.doc-modal-body {
+  padding: 1.25rem;
+}
+
+.doc-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.doc-file-badge {
+  font-size: 0.78rem;
+  color: var(--emerald-glow);
+  font-family: monospace;
+  font-weight: 700;
+}
+
+.btn-copy-file {
+  background: rgba(212, 175, 55, 0.14);
+  color: var(--gold-light);
+  border: 1px solid var(--gold-dim);
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.doc-pre {
+  background: rgba(3, 9, 7, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 1.1rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.82rem;
+  line-height: 1.65;
+  color: #e2e8f0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  max-height: 62vh;
+  overflow-y: auto;
+}
+
+@media (max-width: 860px) {
+  .workspace-grid {
+    grid-template-columns: 1fr;
+  }
+  .inspector-card {
+    position: static;
+  }
+}
