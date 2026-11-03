@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TajwidEngine PRO — RegEx Arabic Phonetic & Tajwid Parser</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header class="luxury-header">
+    <div class="container header-grid">
+      <div class="brand-box">
+        <span class="arabic-ornament">﷽</span>
+        <h1 class="app-title">TajwidEngine <span class="gold-badge">PRO</span></h1>
+        <div class="dev-identity">
+          <span class="live-dot"></span>
+          <span class="dev-text">developer : <strong>fatur62</strong></span>
+        </div>
+      </div>
+
+      <div class="header-controls">
+        <div class="control-item">
+          <label for="preset-sample">Sampel Kalimat Latihan</label>
+          <select id="preset-sample">
+            <option value="all">Semua Sampel Komprehensif</option>
+            <option value="S1">Sampel 1 — Hukum Nun Sukun & Tanwin</option>
+            <option value="S2">Sampel 2 — Qalqalah, Ghunnah & Idgham</option>
+            <option value="S3">Sampel 3 — Hukum Mim Sukun & Iqlab</option>
+            <option value="S4">Sampel 4 — Ikhfa Haqiqi & Mad Thabi'i</option>
+          </select>
+        </div>
+        <button id="btn-open-docs" class="btn-doc-menu" title="Buka Dokumentasi & Lisensi">
+          📖 Baca Saya
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Baris 1: Live Analyzer & Search Filter -->
+    <section class="analyzer-grid">
+      <!-- Live Custom Arabic Input -->
+      <div class="glass-card">
+        <div class="card-header-flex">
+          <span class="card-tag">LIVE REGEX SANDBOX (UJI TEKS ARAB)</span>
+          <span class="status-pill">Real-Time Tokenizer</span>
+        </div>
+        <div class="sandbox-group">
+          <label for="custom-arabic">Ketik atau Tempel Teks Arab Berharakat:</label>
+          <textarea id="custom-arabic" rows="2" dir="rtl" placeholder="مَنْ يَعْمَلْ مِثْقَالَ ذَرَّةٍ خَيْرًا يَرَهُ"></textarea>
+        </div>
+        <div class="sandbox-actions">
+          <button id="btn-parse-custom" class="btn-gold">⚡ Analisis Hukum Tajwid</button>
+          <button id="btn-reset-custom" class="btn-outline-gold">Reset ke Dataset</button>
+        </div>
+      </div>
+
+      <!-- Search & Rule Filter -->
+      <div class="glass-card">
+        <div class="card-header-flex">
+          <span class="card-tag">MESIN PENCARI & FILTER HUKUM</span>
+          <span id="match-counter" class="status-pill pill-warn">0 Deteksi</span>
+        </div>
+        <div class="filter-controls">
+          <div class="input-field">
+            <label for="search-text">Cari Kata / Terjemahan / Hukum</label>
+            <input type="text" id="search-text" placeholder="Ketik kata kunci (misal: qalqalah, ikhfa, sabar)...">
+          </div>
+          <div class="input-field">
+            <label for="filter-rule">Filter Fokus Hukum Tajwid</label>
+            <select id="filter-rule">
+              <option value="ALL">Tampilkan Semua Hukum (Warna Penuh)</option>
+              <option value="GHUNNAH">Ghunnah Musyaddadah (نّ / مّ)</option>
+              <option value="IDGHAM_BIGHUNNAH">Idgham Bighunnah (ي ن م و)</option>
+              <option value="IDGHAM_BILAGHUNNAH">Idgham Bilaghunnah (ل ر)</option>
+              <option value="IQLAB">Iqlab (نْ/تنوين + ب)</option>
+              <option value="IKHFA">Ikhfa Haqiqi (15 Huruf)</option>
+              <option value="IKHFA_SYAFAWI">Ikhfa Syafawi (مْ + ب)</option>
+              <option value="IDGHAM_MIMI">Idgham Mimi / Mutamatsilain (مْ + م)</option>
+              <option value="QALQALAH">Qalqalah (ق ط ب ج د Sukun)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Baris 2: Legenda Interaktif & Statistik Frekuensi -->
+    <section class="legend-section">
+      <div class="section-heading">
+        <h3>Legenda Warna & Statistik Deteksi RegEx</h3>
+        <span class="sub-info">Ketuk pada teks berwarna di bawah untuk melihat rincian kaidah fonetik</span>
+      </div>
+      <div id="legend-grid" class="legend-grid"></div>
+    </section>
+
+    <!-- Baris 3: Hasil Render Teks Arab & Inspector Panel -->
+    <section class="workspace-grid">
+      <div id="arabic-results" class="results-column"></div>
+
+      <!-- Panel Inspektor Tajwid -->
+      <aside class="glass-card inspector-card">
+        <div class="card-tag">INSPEKTOR FONETIK & KAIDAH</div>
+        <div id="inspector-content" class="inspector-body">
+          <div class="inspector-empty">
+            Arsitektur RegEx siap. Ketuk salah satu potongan huruf berwarna pada teks Arab di samping untuk membedah rumus deteksinya.
+          </div>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <!-- Modal Menu "Baca Saya" -->
+  <dialog id="modal-docs" class="doc-modal">
+    <div class="doc-modal-content">
+      <div class="doc-modal-header">
+        <div class="doc-tabs">
+          <button type="button" id="tab-readme" class="doc-tab active">📄 README.md</button>
+          <button type="button" id="tab-license" class="doc-tab">⚖️ LICENSE (MIT)</button>
+        </div>
+        <button type="button" id="btn-close-docs" class="btn-close-modal" aria-label="Tutup">✕</button>
+      </div>
+      <div class="doc-modal-body">
+        <div class="doc-toolbar">
+          <span id="doc-filename" class="doc-file-badge">File: README.md</span>
+          <button type="button" id="btn-copy-doc" class="btn-copy-file">📋 Salin Isi File</button>
+        </div>
+        <pre id="doc-viewer" class="doc-pre"></pre>
+      </div>
+    </div>
+  </dialog>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
