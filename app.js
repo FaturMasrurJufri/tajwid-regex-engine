@@ -1,62 +1,115 @@
 import { TajwidEngine } from "./engine.js";
 
-// Contoh bacaan spesifik untuk masing-masing hukum tajwid (untuk tombol 🔊 di Legenda)
+// Pemetaan Contoh Hukum Tajwid ke Koordinat Surah & Ayat untuk Audio MP3 Qari Dunia
 const RULE_AUDIO_EXAMPLES = {
-  IDGHAM_MIMI: { text: "أَطْعَمَهُمْ مِنْ جُوعٍ", latin: "Ath'amahum min juu'" },
-  IKHFA_SYAFAWI: { text: "تَرْمِيهِمْ بِحِجَارَةٍ", latin: "Tarmiihim bihijaarah" },
-  IQLAB: { text: "سَمِيعٌ بَصِيرٌ", latin: "Samii'um bashiir" },
-  IDGHAM_BIGHUNNAH: { text: "مَنْ يَعْمَلْ", latin: "May ya'mal" },
-  IDGHAM_BILAGHUNNAH: { text: "مِنْ رَبِّهِمْ", latin: "Mir rabbihim" },
-  IKHFA: { text: "مِنْ شَرِّ مَا خَلَقَ", latin: "Min syarri maa khalaq" },
-  GHUNNAH: { text: "إِنَّ الْإِنْسَانَ", latin: "Innal insaana" },
-  QALQALAH: { text: "لَمْ يَلِدْ وَلَمْ يُولَدْ", latin: "Lam yalid wa lam yuulad" }
+  IDGHAM_MIMI: {
+    text: "ٱلَّذِىٓ أَطْعَمَهُم مِّن جُوعٍ",
+    latin: "QS. Quraisy [106]: 4 — Contoh Idgham Mimi (أَطْعَمَهُم مِّن)",
+    surah: 106,
+    ayah: 4
+  },
+  IKHFA_SYAFAWI: {
+    text: "تَرْمِيهِم بِحِجَارَةٍ مِّن سِجِّيلٍ",
+    latin: "QS. Al-Fil [105]: 4 — Contoh Ikhfa Syafawi (تَرْمِيهِم بِحِجَارَةٍ)",
+    surah: 105,
+    ayah: 4
+  },
+  IQLAB: {
+    text: "كَلَّا لَيُنۢبَذَنَّ فِى ٱلْحُطَمَةِ",
+    latin: "QS. Al-Humazah [104]: 4 — Contoh Iqlab (لَيُنۢبَذَنَّ)",
+    surah: 104,
+    ayah: 4
+  },
+  IDGHAM_BIGHUNNAH: {
+    text: "فَمَن يَعْمَلْ مِثْقَالَ ذَرَّةٍ خَيْرًا يَرَهُۥ",
+    latin: "QS. Az-Zalzalah [99]: 7 — Contoh Idgham Bighunnah (فَمَن يَعْمَلْ & خَيْرًا يَرَهُ)",
+    surah: 99,
+    ayah: 7
+  },
+  IDGHAM_BILAGHUNNAH: {
+    text: "وَيْلٌ لِّكُلِّ هُمَزَةٍ لُّمَزَةٍ",
+    latin: "QS. Al-Humazah [104]: 1 — Contoh Idgham Bilaghunnah (وَيْلٌ لِّكُلِّ)",
+    surah: 104,
+    ayah: 1
+  },
+  IKHFA: {
+    text: "مِن شَرِّ ٱلْوَسْوَاسِ ٱلْخَنَّاسِ",
+    latin: "QS. An-Nas [114]: 4 — Contoh Ikhfa Haqiqi (مِن شَرِّ)",
+    surah: 114,
+    ayah: 4
+  },
+  GHUNNAH: {
+    text: "إِنَّآ أَعْطَيْنَٰكَ ٱلْكَوْثَرَ",
+    latin: "QS. Al-Kautsar [108]: 1 — Contoh Ghunnah Musyaddadah (إِنَّا)",
+    surah: 108,
+    ayah: 1
+  },
+  QALQALAH: {
+    text: "لَمْ يَلِدْ وَلَمْ يُولَدْ",
+    latin: "QS. Al-Ikhlas [112]: 3 — Contoh Qalqalah (يَلِدْ & يُولَدْ)",
+    surah: 112,
+    ayah: 3
+  }
 };
 
+// Dataset Sampel yang Terhubung ke Rekaman MP3 Qari Dunia
 const SAMPLE_DATA = [
   {
     id: "S1",
-    title: "Sampel Latihan 1 — Kombinasi Nun Sukun, Tanwin & Qalqalah",
-    arabic: "مَنْ يَعْمَلْ مِثْقَالَ ذَرَّةٍ خَيْرًا يَرَهُ ۞ وَمَنْ يَكْسِبْ إِثْمًا فَإِنَّمَا يَكْسِبُهُ عَلَىٰ نَفْسِهِ",
-    translation: "Kalimat latihan untuk menguji deteksi Idgham Bighunnah, Qalqalah Sukun, Ikhfa Haqiqi, dan Ghunnah Musyaddadah."
+    title: "Sampel 1 — QS. Az-Zalzalah: 7 (Idgham Bighunnah & Qalqalah)",
+    arabic: "فَمَنْ يَعْمَلْ مِثْقَالَ ذَرَّةٍ خَيْرًا يَرَهُ",
+    translation: "Fokus deteksi: Idgham Bighunnah pada pertemuan Nun Sukun dan Tanwin dengan huruf Ya (فَمَنْ يَعْمَلْ dan خَيْرًا يَرَهُ).",
+    surah: 99,
+    ayah: 7
   },
   {
     id: "S2",
-    title: "Sampel Latihan 2 — Qalqalah, Ghunnah & Idgham Bilaghunnah",
-    arabic: "أَلَمْ نَشْرَحْ لَكَ صَدْرَكَ ۞ وَوَضَعْنَا عَنْكَ وِزْرَكَ ۞ مِنْ رَبِّهِمْ هُدًى وَرَحْمَةٌ لِلْمُؤْمِنِينَ",
-    translation: "Kalimat latihan untuk menguji Qalqalah, Ikhfa Haqiqi, serta Idgham Bilaghunnah pada pertemuan Nun Sukun/Tanwin dengan huruf Ra dan Lam."
+    title: "Sampel 2 — QS. Al-Insyirah: 1–2 (Qalqalah & Ikhfa Haqiqi)",
+    arabic: "أَلَمْ نَشْرَحْ لَكَ صَدْرَكَ ۞ وَوَضَعْنَا عَنْكَ وِزْرَكَ",
+    translation: "Fokus deteksi: Qalqalah Sugra pada huruf Dal sukun (صَدْرَكَ) dan Ikhfa Haqiqi pada Nun Sukun bertemu Kaf (عَنْكَ).",
+    surah: 94,
+    ayah: 1
   },
   {
     id: "S3",
-    title: "Sampel Latihan 3 — Hukum Mim Sukun (Ikhfa Syafawi & Idgham Mimi) serta Iqlab",
-    arabic: "تَرْمِيهِمْ بِحِجَارَةٍ مِنْ سِجِّيلٍ ۞ أَطْعَمَهُمْ مِنْ جُوعٍ وَآمَنَهُمْ مِنْ خَوْفٍ ۞ كَلَّا لَيُنْبَذَنَّ فِي الْحُطَمَةِ",
-    translation: "Kalimat latihan untuk menguji Ikhfa Syafawi, Idgham Mimi, Iqlab, dan Ghunnah Musyaddadah."
+    title: "Sampel 3 — QS. Al-Fil: 4 & Al-Humazah: 4 (Ikhfa Syafawi & Iqlab)",
+    arabic: "تَرْمِيهِمْ بِحِجَارَةٍ مِنْ سِجِّيلٍ ۞ كَلَّا لَيُنْبَذَنَّ فِي الْحُطَمَةِ",
+    translation: "Fokus deteksi: Ikhfa Syafawi (تَرْمِيهِمْ بِحِجَارَةٍ), Idgham Bighunnah (بِحِجَارَةٍ مِنْ), Ikhfa Haqiqi (مِنْ سِجِّيلٍ), Iqlab & Ghunnah (لَيُنْبَذَنَّ).",
+    surah: 105,
+    ayah: 4
   },
   {
     id: "S4",
-    title: "Sampel Latihan 4 — Rangkaian Ikhfa Haqiqi, Qalqalah & Ghunnah",
-    arabic: "إِنَّ الْإِنْسَانَ لَفِي خُسْرٍ ۞ وَالْعَصْرِ وَالصَّبْرِ عِنْدَ الصَّدْمَةِ الْأُولَىٰ ۞ قَدْ أَفْلَحَ مَنْ زَكَّاهَا",
-    translation: "Kalimat latihan untuk menguji Ghunnah, Ikhfa Haqiqi, serta Qalqalah pada huruf Dal dan Ba sukun."
+    title: "Sampel 4 — QS. Al-Ikhlas: 1–3 (Qalqalah Dal Sukun)",
+    arabic: "قُلْ هُوَ اللَّهُ أَحَدٌ ۞ اللَّهُ الصَّمَدُ ۞ لَمْ يَلِدْ وَلَمْ يُولَدْ",
+    translation: "Fokus deteksi: Pantulan Qalqalah pada huruf Dal berharakat sukun (يَلِدْ dan يُولَدْ).",
+    surah: 112,
+    ayah: 3
   }
 ];
 
 const DOCS_DATA = {
   readme: {
     filename: "README.md",
-    content: `📖 Manual Penggunaan — TajwidEngine PRO (Audio & RegEx Edition)
+    content: `📖 Manual Penggunaan — TajwidEngine PRO (World Qari Audio Edition)
 
-TajwidEngine PRO adalah mesin pencari, parser fonetik hukum tajwid berbasis Regular Expressions (RegEx), dan penyintesis audio pelafalan Arab secara real-time di sisi klien tanpa API eksternal.
+TajwidEngine PRO adalah mesin pencari, parser fonetik hukum tajwid berbasis Regular Expressions (RegEx), yang dilengkapi integrasi audio murottal asli dari para Qari terkemuka dunia.
 
-1. Mendengarkan Audio Contoh Bacaan (3 Cara):
-   - Audio Contoh per Hukum (Di Bagian Legenda): Ketuk tombol "🔊 Contoh" pada masing-masing kartu legenda hukum tajwid untuk mendengar contoh pelafalan spesifik hukum tersebut.
-   - Audio Kalimat Sampel Penuh: Ketuk tombol "🔊 Putar Audio Sampel" di sudut kanan atas setiap kartu kalimat latihan.
-   - Audio Potongan Token Tajwid: Ketuk salah satu huruf berwarna pada teks Arab, lalu ketuk tombol "🔊 Dengarkan Pelafalan Potongan Ini" di panel Inspektor.
+1. Memilih Suara Qari Dunia:
+   - Gunakan menu dropdown "Pilih Qari Dunia (MP3 Asli)" di bagian header atas:
+     • Syaikh Mahmoud Khalil Al-Hussary (Versi Muallim / Standar Guru Tajwid)
+     • Syaikh Mishary Rashid Alafasy
+     • Syaikh Abdul Basit Abdus Samad
+     • Syaikh Abdurrahman As-Sudais
+     • Syaikh Sa'ad Al-Ghamidi
 
-2. Mengatur Kecepatan Bacaan (Tartil):
-   - Gunakan menu dropdown "Kecepatan Baca (Tartil)" di bagian atas untuk memilih tempo Lambat/Tahqiq (0.75x), Tartil Standar (0.9x), atau Normal/Tadwir (1.0x).
+2. Mendengarkan Audio Contoh Bacaan:
+   - Tombol "🔊 Qari" pada Legenda Hukum: Memutar rekaman MP3 asli Qari pilihan Anda pada ayat Al-Qur'an yang mengandung contoh hukum tajwid tersebut.
+   - Tombol "🔊 Putar Qari" pada Kartu Sampel: Memutar rekaman MP3 Qari untuk sampel ayat terkait.
+   - Klik Potongan Huruf Berwarna: Membedah rumus RegEx di panel Inspektor sekaligus melafalkan bunyi fokus potongan kata tersebut.
 
-3. Menguji Teks Arab Sendiri (Live RegEx & Audio Sandbox):
-   - Ketik atau tempel kalimat bahasa Arab berharakat pada kotak Sandbox.
-   - Ketuk tombol emas "⚡ Analisis & Siapkan Audio" untuk mewarnai hukum tajwid sekaligus mengaktifkan fitur pembaca audionya.
+3. Menguji Teks Arab Sendiri (Live Sandbox):
+   - Ketik atau tempel kalimat bahasa Arab berharakat pada kotak Sandbox, lalu ketuk tombol emas "⚡ Analisis & Siapkan Audio".
 
 fatur62@gmail.com`
   },
@@ -93,15 +146,16 @@ class TajwidApp {
       filterRule: "ALL",
       searchKeyword: "",
       activeDocKey: "readme",
-      speechRate: 0.9,
+      selectedQari: "Husary_Muallim_128kbps",
+      currentAudio: null,
       isPlayingAudio: false,
       animFrameId: null,
       wavePhase: 0
     };
 
     this.el = {
+      selectQari: document.getElementById("select-qari"),
       presetSample: document.getElementById("preset-sample"),
-      audioRate: document.getElementById("audio-rate"),
       customArabic: document.getElementById("custom-arabic"),
       btnParseCustom: document.getElementById("btn-parse-custom"),
       btnResetCustom: document.getElementById("btn-reset-custom"),
@@ -133,16 +187,19 @@ class TajwidApp {
   }
 
   bindEvents() {
+    this.el.selectQari.addEventListener("change", (e) => {
+      this.state.selectedQari = e.target.value;
+      if (this.state.isPlayingAudio) {
+        this.stopAudio();
+      }
+    });
+
     this.el.presetSample.addEventListener("change", (e) => {
       const val = e.target.value;
       this.state.activeItems = val === "all"
         ? [...SAMPLE_DATA]
         : SAMPLE_DATA.filter((item) => item.id === val);
       this.renderAll();
-    });
-
-    this.el.audioRate.addEventListener("change", (e) => {
-      this.state.speechRate = parseFloat(e.target.value) || 0.9;
     });
 
     this.el.btnParseCustom.addEventListener("click", () => {
@@ -156,7 +213,9 @@ class TajwidApp {
           id: "CUSTOM",
           title: "Hasil Analisis Teks Kustom (Live Sandbox)",
           arabic: rawText,
-          translation: "Teks kustom yang dianalisis secara real-time beserta dukungan pelafalan audio."
+          translation: "Teks kustom yang dianalisis secara real-time dengan dukungan pelafalan sintetis Arab.",
+          surah: null,
+          ayah: null
         }
       ];
       this.renderAll();
@@ -212,14 +271,15 @@ class TajwidApp {
     });
   }
 
-  // Mesin Pemutar Audio Pelafalan Arab + Gelombang Visualizer
-  speakArabic(arabicText, labelInfo = "Memutar Audio...", activeColor = "#d4af37", buttonEl = null) {
-    if (!("speechSynthesis" in window)) {
-      alert("Browser Anda tidak mendukung fitur Web Speech Audio.");
-      return;
-    }
+  // Membuat URL MP3 CDN EveryAyah berdasarkan kode Qari, Nomor Surah & Nomor Ayat
+  buildQariMp3Url(surah, ayah) {
+    const sCode = String(surah).padStart(3, "0");
+    const aCode = String(ayah).padStart(3, "0");
+    return `https://everyayah.com/data/${this.state.selectedQari}/${sCode}${aCode}.mp3`;
+  }
 
-    // Jika sedang memutar dan tombol yang sama diklik, hentikan
+  // Memutar Rekaman MP3 Asli Qari Dunia (dengan Fallback Web Speech jika offline/gagal)
+  playQariAudio(surah, ayah, fallbackArabicText, labelInfo = "Murottal Qari", color = "#10b981", buttonEl = null) {
     if (this.state.isPlayingAudio && buttonEl && buttonEl.classList.contains("playing")) {
       this.stopAudio();
       return;
@@ -227,19 +287,62 @@ class TajwidApp {
 
     this.stopAudio();
 
-    // Bersihkan simbol pemisah ayat (۞) agar tidak dibaca aneh oleh mesin suara
+    if (!surah || !ayah) {
+      this.speakArabicFallback(fallbackArabicText, labelInfo, color, buttonEl);
+      return;
+    }
+
+    const mp3Url = this.buildQariMp3Url(surah, ayah);
+    const audio = new Audio(mp3Url);
+    this.state.currentAudio = audio;
+
+    this.el.audioStatusBadge.textContent = "⏳ Memuat Qari...";
+    this.el.audioStatusBadge.classList.remove("pill-warn");
+
+    if (buttonEl) {
+      buttonEl.classList.add("playing");
+      buttonEl.dataset.origText = buttonEl.innerHTML;
+      buttonEl.innerHTML = "⏹ Hentikan Qari";
+    }
+
+    audio.addEventListener("playing", () => {
+      this.state.isPlayingAudio = true;
+      this.el.audioStatusBadge.textContent = `🔊 ${labelInfo}`;
+      this.startWaveformAnimation(color);
+    });
+
+    audio.addEventListener("ended", () => {
+      this.stopAudio();
+    });
+
+    audio.addEventListener("error", () => {
+      // Fallback otomatis ke sintetis suara jika koneksi ke CDN terhalang
+      this.speakArabicFallback(fallbackArabicText, labelInfo, color, buttonEl);
+    });
+
+    audio.play().catch(() => {
+      this.speakArabicFallback(fallbackArabicText, labelInfo, color, buttonEl);
+    });
+  }
+
+  // Mesin Pelafalan Potongan Kata Pendek / Fallback
+  speakArabicFallback(arabicText, labelInfo = "Pelafalan Fokus", activeColor = "#d4af37", buttonEl = null) {
+    if (!("speechSynthesis" in window)) {
+      this.stopAudio();
+      alert("Gagal memuat audio.");
+      return;
+    }
+
+    this.stopAudio();
+
     const cleanArabic = arabicText.replace(/۞/g, " ، ");
     const utterance = new SpeechSynthesisUtterance(cleanArabic);
     utterance.lang = "ar-SA";
-    utterance.rate = this.state.speechRate;
-    utterance.pitch = 1.0;
+    utterance.rate = 0.85;
 
-    // Pilih voice Bahasa Arab terbaik jika tersedia di perangkat
     const voices = window.speechSynthesis.getVoices();
     const arabVoice = voices.find((v) => v.lang.includes("ar"));
-    if (arabVoice) {
-      utterance.voice = arabVoice;
-    }
+    if (arabVoice) utterance.voice = arabVoice;
 
     utterance.onstart = () => {
       this.state.isPlayingAudio = true;
@@ -253,26 +356,27 @@ class TajwidApp {
       this.startWaveformAnimation(activeColor);
     };
 
-    utterance.onend = () => {
-      this.stopAudio();
-    };
-
-    utterance.onerror = () => {
-      this.stopAudio();
-    };
+    utterance.onend = () => this.stopAudio();
+    utterance.onerror = () => this.stopAudio();
 
     window.speechSynthesis.speak(utterance);
   }
 
   stopAudio() {
+    if (this.state.currentAudio) {
+      this.state.currentAudio.pause();
+      this.state.currentAudio.currentTime = 0;
+      this.state.currentAudio = null;
+    }
     if ("speechSynthesis" in window) {
       window.speechSynthesis.cancel();
     }
+
     this.state.isPlayingAudio = false;
     this.el.audioStatusBadge.textContent = "Audio Siap";
     this.el.audioStatusBadge.classList.add("pill-warn");
 
-    document.querySelectorAll(".btn-play-ayah.playing").forEach((btn) => {
+    document.querySelectorAll(".btn-play-ayah.playing, .btn-mini-audio.playing").forEach((btn) => {
       btn.classList.remove("playing");
       if (btn.dataset.origText) {
         btn.innerHTML = btn.dataset.origText;
@@ -389,9 +493,9 @@ class TajwidApp {
       const playBtn = document.createElement("button");
       playBtn.type = "button";
       playBtn.className = "btn-play-ayah";
-      playBtn.innerHTML = "🔊 Putar Audio Sampel";
+      playBtn.innerHTML = item.surah ? "🔊 Putar Qari" : "🔊 Putar Audio";
       playBtn.addEventListener("click", () => {
-        this.speakArabic(item.arabic, item.id, "#10b981", playBtn);
+        this.playQariAudio(item.surah, item.ayah, item.arabic, `Qari (${item.id})`, "#10b981", playBtn);
       });
 
       const countPill = document.createElement("span");
@@ -417,8 +521,12 @@ class TajwidApp {
           span.addEventListener("click", () => {
             document.querySelectorAll(".tj-token.selected").forEach((el) => el.classList.remove("selected"));
             span.classList.add("selected");
-            this.renderInspector(seg.meta);
-            this.speakArabic(seg.meta.matchedText, seg.meta.ruleName, seg.meta.color);
+            this.renderInspector({ ...seg.meta, surah: item.surah, ayah: item.ayah });
+            if (item.surah && item.ayah) {
+              this.playQariAudio(item.surah, item.ayah, seg.meta.matchedText, seg.meta.ruleName, seg.meta.color);
+            } else {
+              this.speakArabicFallback(seg.meta.matchedText, seg.meta.ruleName, seg.meta.color);
+            }
           });
           arabDiv.appendChild(span);
         }
@@ -466,8 +574,8 @@ class TajwidApp {
       const sampleBtn = document.createElement("button");
       sampleBtn.type = "button";
       sampleBtn.className = "btn-mini-audio";
-      sampleBtn.title = `Dengarkan contoh bacaan ${rule.name}`;
-      sampleBtn.textContent = "🔊 Contoh";
+      sampleBtn.title = `Dengarkan Qari membaca contoh ${rule.name}`;
+      sampleBtn.innerHTML = "🔊 Qari";
       sampleBtn.addEventListener("click", (e) => {
         e.stopPropagation();
         const ex = RULE_AUDIO_EXAMPLES[rule.id];
@@ -475,14 +583,14 @@ class TajwidApp {
           this.renderInspector({
             ruleId: rule.id,
             ruleName: rule.name,
-            caraBaca: `${rule.caraBaca} (Contoh Lafadz: ${ex.latin})`,
+            caraBaca: `${rule.caraBaca} (${ex.latin})`,
             regexSource: rule.pattern.source,
             color: rule.color,
             matchedText: ex.text,
-            start: 0,
-            end: ex.text.length
+            surah: ex.surah,
+            ayah: ex.ayah
           });
-          this.speakArabic(ex.text, rule.name, rule.color);
+          this.playQariAudio(ex.surah, ex.ayah, ex.text, rule.name, rule.color, sampleBtn);
         }
       });
 
@@ -507,7 +615,7 @@ class TajwidApp {
         ${this.escapeHtml(meta.matchedText)}
       </div>
       <button type="button" id="btn-replay-token" class="btn-speak-token">
-        🔊 Dengarkan Pelafalan Potongan Ini
+        🔊 Putar Ulang Audio Qari
       </button>
       <div class="insp-row">
         <div class="insp-label">Hukum Tajwid Terdeteksi</div>
@@ -526,7 +634,11 @@ class TajwidApp {
     const replayBtn = document.getElementById("btn-replay-token");
     if (replayBtn) {
       replayBtn.addEventListener("click", () => {
-        this.speakArabic(meta.matchedText, meta.ruleName, meta.color);
+        if (meta.surah && meta.ayah) {
+          this.playQariAudio(meta.surah, meta.ayah, meta.matchedText, meta.ruleName, meta.color);
+        } else {
+          this.speakArabicFallback(meta.matchedText, meta.ruleName, meta.color);
+        }
       });
     }
   }
