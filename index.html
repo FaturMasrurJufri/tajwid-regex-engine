@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TajwidEngine PRO — RegEx Arabic Phonetic & Qari Audio Parser</title>
+  <title>TajwidEngine PRO — 16 Hukum Tajwid RegEx & World Qari Audio</title>
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
@@ -11,7 +11,7 @@
     <div class="container header-grid">
       <div class="brand-box">
         <span class="arabic-ornament">﷽</span>
-        <h1 class="app-title">TajwidEngine <span class="gold-badge">PRO</span></h1>
+        <h1 class="app-title">TajwidEngine <span class="gold-badge">PRO 16</span></h1>
         <div class="dev-identity">
           <span class="live-dot"></span>
           <span class="dev-text">developer : <strong>fatur62</strong></span>
@@ -30,13 +30,15 @@
           </select>
         </div>
         <div class="control-item">
-          <label for="preset-sample">Sampel Kalimat Latihan</label>
+          <label for="preset-sample">Sampel Ayat Latihan</label>
           <select id="preset-sample">
-            <option value="all">Semua Sampel Komprehensif</option>
-            <option value="S1">Sampel 1 — Hukum Nun Sukun & Tanwin</option>
-            <option value="S2">Sampel 2 — Qalqalah, Ghunnah & Idgham</option>
-            <option value="S3">Sampel 3 — Hukum Mim Sukun & Iqlab</option>
-            <option value="S4">Sampel 4 — Ikhfa Haqiqi & Qalqalah</option>
+            <option value="all">Semua Sampel Komprehensif (6 Paket)</option>
+            <option value="S1">Sampel 1 — Nun Sukun & Tanwin</option>
+            <option value="S2">Sampel 2 — Mim Sukun & Iqlab</option>
+            <option value="S3">Sampel 3 — Alif Lam, Qalqalah & Ghunnah</option>
+            <option value="S4">Sampel 4 — Rumpun Hukum Mad (Muttashil, Munfashil, Lazim)</option>
+            <option value="S5">Sampel 5 — Mad Layyin & Izhar Halqi</option>
+            <option value="S6">Sampel 6 — Lafadz Jalalah (Tafkhim & Tarqiq)</option>
           </select>
         </div>
         <button id="btn-open-docs" class="btn-doc-menu" title="Buka Dokumentasi & Lisensi">
@@ -52,51 +54,69 @@
       <div class="glass-card">
         <div class="card-header-flex">
           <span class="card-tag">LIVE REGEX & AUDIO SANDBOX</span>
-          <span class="status-pill">Real-Time Tokenizer</span>
+          <span class="status-pill">16 Rules Active</span>
         </div>
         <div class="sandbox-group">
           <label for="custom-arabic">Ketik atau Tempel Teks Arab Berharakat:</label>
-          <textarea id="custom-arabic" rows="2" dir="rtl" placeholder="مَنْ يَعْمَلْ مِثْقَالَ ذَرَّةٍ خَيْرًا يَرَهُ"></textarea>
+          <textarea id="custom-arabic" rows="2" dir="rtl" placeholder="بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ ۞ قُلْ هُوَ اللَّهُ أَحَدٌ"></textarea>
         </div>
         <div class="sandbox-actions">
-          <button id="btn-parse-custom" class="btn-gold">⚡ Analisis & Siapkan Audio</button>
+          <button id="btn-parse-custom" class="btn-gold">⚡ Analisis 16 Hukum Tajwid</button>
           <button id="btn-reset-custom" class="btn-outline-gold">Reset ke Dataset</button>
         </div>
       </div>
 
       <div class="glass-card">
         <div class="card-header-flex">
-          <span class="card-tag">MESIN PENCARI & FILTER HUKUM</span>
+          <span class="card-tag">MESIN PENCARI & FILTER 16 HUKUM</span>
           <span id="match-counter" class="status-pill pill-warn">0 Deteksi</span>
         </div>
         <div class="filter-controls">
           <div class="input-field">
-            <label for="search-text">Cari Kata / Keterangan / Hukum</label>
-            <input type="text" id="search-text" placeholder="Ketik kata kunci (misal: qalqalah, ikhfa, iqlab)...">
+            <label for="search-text">Cari Kata / Surah / Nama Hukum</label>
+            <input type="text" id="search-text" placeholder="Ketik kata kunci (misal: izhar, syamsiyah, muttashil, jalalah)...">
           </div>
           <div class="input-field">
-            <label for="filter-rule">Filter Fokus Hukum Tajwid</label>
+            <label for="filter-rule">Filter Fokus Hukum Tajwid (16 Kaidah)</label>
             <select id="filter-rule">
-              <option value="ALL">Tampilkan Semua Hukum (Warna Penuh)</option>
-              <option value="GHUNNAH">Ghunnah Musyaddadah (نّ / مّ)</option>
-              <option value="IDGHAM_BIGHUNNAH">Idgham Bighunnah (ي ن م و)</option>
-              <option value="IDGHAM_BILAGHUNNAH">Idgham Bilaghunnah (ل ر)</option>
-              <option value="IQLAB">Iqlab (نْ/تنوين + ب)</option>
-              <option value="IKHFA">Ikhfa Haqiqi (15 Huruf)</option>
-              <option value="IKHFA_SYAFAWI">Ikhfa Syafawi (مْ + ب)</option>
-              <option value="IDGHAM_MIMI">Idgham Mimi / Mutamatsilain (مْ + م)</option>
-              <option value="QALQALAH">Qalqalah (ق ط ب ج د Sukun)</option>
+              <option value="ALL">Tampilkan Semua 16 Hukum (Warna Penuh)</option>
+              <optgroup label="1. Hukum Nun Sukun & Tanwin">
+                <option value="IZHAR_HALQI">Izhar Halqi (ء هـ ع ح غ خ)</option>
+                <option value="IDGHAM_BIGHUNNAH">Idgham Bighunnah (ي ن م و)</option>
+                <option value="IDGHAM_BILAGHUNNAH">Idgham Bilaghunnah (ل ر)</option>
+                <option value="IQLAB">Iqlab (نْ/تنوين + ب)</option>
+                <option value="IKHFA">Ikhfa Haqiqi (15 Huruf)</option>
+              </optgroup>
+              <optgroup label="2. Hukum Mim Sukun & Ghunnah">
+                <option value="IKHFA_SYAFAWI">Ikhfa Syafawi (مْ + ب)</option>
+                <option value="IDGHAM_MIMI">Idgham Mimi / Mutamatsilain (مْ + م)</option>
+                <option value="IZHAR_SYAFAWI">Izhar Syafawi (مْ + Selain م/ب)</option>
+                <option value="GHUNNAH">Ghunnah Musyaddadah (نّ / مّ)</option>
+              </optgroup>
+              <optgroup label="3. Hukum Alif Lam & Qalqalah">
+                <option value="AL_SYAMSIYAH">Alif Lam Syamsiyah (ال + Tasydid)</option>
+                <option value="AL_QAMARIYAH">Alif Lam Qamariyah (الْ Sukun)</option>
+                <option value="QALQALAH">Qalqalah (ق ط ب ج د Sukun)</option>
+              </optgroup>
+              <optgroup label="4. Hukum Mad & Lafadz Jalalah">
+                <option value="MAD_LAZIM">Mad Lazim (ـٓ + Tasydid 6 Harakat)</option>
+                <option value="MAD_WAJIB">Mad Wajib Muttashil (ـٓ + ء Satu Kata)</option>
+                <option value="MAD_JAIZ">Mad Jaiz Munfashil (Mad + أ/إ Beda Kata)</option>
+                <option value="MAD_LAYYIN">Mad Layyin / Lin (ـَوْ / ـَيْ)</option>
+                <option value="MAD_THABII">Mad Thabi'i / Asli (2 Harakat)</option>
+                <option value="LAFADZ_JALALAH">Lafadz Jalalah (Tafkhim & Tarqiq اللَّه)</option>
+              </optgroup>
             </select>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Baris 2: Legenda Interaktif & Tombol Audio Qari per Hukum -->
+    <!-- Baris 2: Legenda Interaktif 16 Hukum & Tombol Audio Qari -->
     <section class="legend-section">
       <div class="section-heading">
-        <h3>Legenda Warna & Audio Qari Tiap Hukum</h3>
-        <span class="sub-info">Ketuk tombol 🔊 Qari pada tiap hukum untuk mendengar rekaman asli Qari dunia pada ayat yang memuat hukum tersebut</span>
+        <h3>Katalog 16 Hukum Tajwid & Audio Contoh Qari Dunia</h3>
+        <span class="sub-info">Ketuk tombol 🔊 Qari pada tiap hukum untuk mendengar lantunan MP3 Qari, atau ketuk nama hukum untuk memfilter</span>
       </div>
       <div id="legend-grid" class="legend-grid"></div>
     </section>
@@ -118,7 +138,7 @@
 
         <div id="inspector-content" class="inspector-body">
           <div class="inspector-empty">
-            Pilih Qari di bagian atas, lalu ketuk tombol 🔊 Qari pada legenda atau kartu sampel untuk mendengarkan lantunan murottal asli.
+            Pilih Qari di bagian atas, lalu ketuk potongan huruf berwarna atau tombol 🔊 Qari pada katalog 16 hukum di atas untuk mendengar rekaman murottal asli.
           </div>
         </div>
       </aside>
